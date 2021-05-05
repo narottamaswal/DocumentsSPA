@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+   <html xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="ISO-8859-1">
+<title>Document Manager</title>
+<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+<div class="continer-fluid text-center">
+<h1>Document Manager</h1>
+<div class="text-success">
+<h3>[[${message}]]</h3>
+</div>
+
+<div class="row border rounded m-3 p-3">
+	<th:block th:each="doc : ${docslist}">
+		<div class="col">
+			<div><img th:src="@{/images/doc.jpg}" width="50"/></div>
+		  	<div><a th:href="@{'/download?id='+ ${doc.id}}">[[${doc.name}]]</a></div>
+				  	<div><a th:href="@{'/file?id='+ ${doc.id}}">[[${doc.uploadTime}]]</a></div>
+		</div>
+	</th:block>
+</div>
+
+<form th:action="@{/upload}" method="post" enctype="multipart/form-data" 
+style="max-wdth:600px;margin:0 auto"
+>
+<div class="border rounded m-3">
+	<h2>Upload your files</h2>
+	<p><input type="file" name="document" required></p>
+	<input type="submit" value="upload" class="btn btn-primary"/>
+</div>
+</form>
+</div>
+</body>
+</html>
